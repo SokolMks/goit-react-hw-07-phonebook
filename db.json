@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "name": "Alex",
+      "number": "88005553535",
+      "id": 1
+    },
+    {
+      "name": "Balex",
+      "number": "33366699912",
+      "id": 2
+    },
+    {
+      "name": "Oleg",
+      "number": "9124155212",
+      "id": 3
+    }
+  ]
+}
