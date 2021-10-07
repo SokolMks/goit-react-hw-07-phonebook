@@ -10,6 +10,7 @@ import {
   fetchContactsSucces,
   fetchContactsError,
 } from './contacts-actions';
+import {addContacts} from './contacts-selectors';
 
 axios.defaults.baseURL = 'http://localhost:3001';
 
@@ -21,17 +22,19 @@ const fetchContacts = () => dispatch => {
     .catch(error => dispatch(fetchContactsError(error)));
 };
 
-const addContact = data => dispatch => {
-  const contacts = { name: data.name, number: data.number };
-
-  dispatch(addContactsRequest());
-
-  axios
-    .post('/contacts', contacts)
-    .then(({ data }) => dispatch(addContactsSucces(data)))
-    .catch(error => dispatch(addContactsError(error)));
-};
-
+const addContact = ({ name, number }, contacts) =>
+  async (dispatch) => {
+    dispatch(addContactsRequest());
+    try {
+      const data = await addContacts({ name, number }, contacts);
+      if (!data) {
+        return alert("Cant have dublicate contact");
+      }
+      dispatch(addContactsSucces(data));
+    } catch (error) {
+      dispatch(addContactsError(error.message));
+    }
+  };
 const deleteContact = id => dispatch => {
   dispatch(deleteContactRequest());
   axios
