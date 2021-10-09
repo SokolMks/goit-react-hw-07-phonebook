@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import contactsOperations from '../../redux/contacts/contacts-operations';
+import { getAllContacts } from '../../redux/contacts/contacts-selectors';
 import PropTypes from 'prop-types';
 import style from "./Phonebook.module.css";
 
 function PhoneBook({ onSubmit }) {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const contacts = useSelector(state => state.contacts.entities);
+  const contacts = useSelector(getAllContacts);
 
   const handleChangeInput = (e) => {
     const { value } = e.currentTarget;
@@ -25,7 +26,6 @@ function PhoneBook({ onSubmit }) {
     e.preventDefault();
 
     //submitForm({ name, number });
-    const newContact = name.toLowerCase();
     const savedContacts =  contacts.map(({ name }) => name.toLowerCase()).includes(name.toLowerCase());
     const savedContactsNumber = contacts.map(({ number }) => number).includes(number);
     if (savedContacts) {

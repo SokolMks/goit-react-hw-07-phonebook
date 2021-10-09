@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 const getFilter = state => state.contacts.filter;
 
-const getAllContacts = state => state.contacts.items;
+export const getAllContacts = state => state.contacts.items;
 
 const getFilteredContacts = createSelector(
   [getAllContacts, getFilter],
